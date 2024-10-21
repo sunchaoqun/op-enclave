@@ -1,8 +1,8 @@
 package proposer
 
 import (
+	"github.com/base-org/op-enclave/op-proposer/flags"
 	"github.com/ethereum-optimism/optimism/op-proposer/proposer"
-	"github.com/mdehoog/op-enclave/op-proposer/flags"
 	"github.com/urfave/cli/v2"
 )
 

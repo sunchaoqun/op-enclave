@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
+	thisflags "github.com/base-org/op-enclave/op-proposer/flags"
 	"github.com/ethereum-optimism/optimism/op-proposer/flags"
 	opservice "github.com/ethereum-optimism/optimism/op-service"
 	"github.com/ethereum-optimism/optimism/op-service/cliapp"
 	oplog "github.com/ethereum-optimism/optimism/op-service/log"
-	thisflags "github.com/mdehoog/op-enclave/op-proposer/flags"
 	"github.com/urfave/cli/v2"
 )
 

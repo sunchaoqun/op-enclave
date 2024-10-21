@@ -9,6 +9,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/base-org/op-enclave/bindings"
+	"github.com/base-org/op-enclave/op-withdrawer/withdrawals"
 	bindings2 "github.com/ethereum-optimism/optimism/op-e2e/bindings"
 	"github.com/ethereum-optimism/optimism/op-node/rollup/derive"
 	"github.com/ethereum-optimism/optimism/op-service/predeploys"
@@ -19,8 +21,6 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/ethclient/gethclient"
-	"github.com/mdehoog/op-enclave/bindings"
-	"github.com/mdehoog/op-enclave/op-withdrawer/withdrawals"
 )
 
 const pollInterval = 250 * time.Millisecond

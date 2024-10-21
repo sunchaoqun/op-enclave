@@ -8,6 +8,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/base-org/op-enclave/bindings"
+	"github.com/base-org/op-enclave/op-enclave/enclave"
 	"github.com/ethereum-optimism/optimism/op-proposer/metrics"
 	"github.com/ethereum-optimism/optimism/op-service/eth"
 	"github.com/ethereum-optimism/optimism/op-service/txmgr"
@@ -16,8 +18,6 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/mdehoog/op-enclave/bindings"
-	"github.com/mdehoog/op-enclave/op-enclave/enclave"
 )
 
 var (

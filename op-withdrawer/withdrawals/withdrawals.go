@@ -7,13 +7,13 @@ import (
 	"math/big"
 	"time"
 
+	"github.com/base-org/op-enclave/bindings"
 	"github.com/ethereum-optimism/optimism/op-node/withdrawals"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient/gethclient"
-	"github.com/mdehoog/op-enclave/bindings"
 )
 
 type ProofClient interface {

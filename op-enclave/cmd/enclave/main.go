@@ -3,10 +3,10 @@ package main
 import (
 	"net/http"
 
+	enclave2 "github.com/base-org/op-enclave/op-enclave/enclave"
 	oplog "github.com/ethereum-optimism/optimism/op-service/log"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/rpc"
-	enclave2 "github.com/mdehoog/op-enclave/op-enclave/enclave"
 	"github.com/mdlayher/vsock"
 )
 

@@ -4,8 +4,8 @@ import (
 	"context"
 	"os"
 
+	"github.com/base-org/op-enclave/op-batcher/batcher"
 	"github.com/ethereum-optimism/optimism/op-batcher/flags"
-	"github.com/mdehoog/op-enclave/op-batcher/batcher"
 	"github.com/urfave/cli/v2"
 
 	opservice "github.com/ethereum-optimism/optimism/op-service"

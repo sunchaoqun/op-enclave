@@ -7,6 +7,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/base-org/op-enclave/bindings"
+	"github.com/base-org/op-enclave/op-withdrawer/withdrawals"
 	"github.com/ethereum-optimism/optimism/op-node/rollup/derive"
 	"github.com/ethereum-optimism/optimism/op-service/ctxinterrupt"
 	oplog "github.com/ethereum-optimism/optimism/op-service/log"
@@ -17,8 +19,6 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/ethclient/gethclient"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/mdehoog/op-enclave/bindings"
-	"github.com/mdehoog/op-enclave/op-withdrawer/withdrawals"
 	"github.com/urfave/cli/v2"
 )
 

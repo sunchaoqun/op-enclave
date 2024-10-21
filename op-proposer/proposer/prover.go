@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/base-org/op-enclave/op-enclave/enclave"
 	"github.com/ethereum-optimism/optimism/op-node/rollup/derive"
 	"github.com/ethereum-optimism/optimism/op-service/eth"
 	"github.com/ethereum-optimism/optimism/op-service/predeploys"
@@ -11,7 +12,6 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/hashicorp/go-multierror"
-	"github.com/mdehoog/op-enclave/op-enclave/enclave"
 )
 
 type Prover struct {

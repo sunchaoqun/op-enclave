@@ -7,12 +7,12 @@ import (
 	"os"
 	"sync/atomic"
 
+	"github.com/base-org/op-enclave/op-da/flags"
 	altda "github.com/ethereum-optimism/optimism/op-alt-da"
 	opservice "github.com/ethereum-optimism/optimism/op-service"
 	"github.com/ethereum-optimism/optimism/op-service/cliapp"
 	oplog "github.com/ethereum-optimism/optimism/op-service/log"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/mdehoog/op-enclave/op-da/flags"
 	"github.com/urfave/cli/v2"
 )
 

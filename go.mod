@@ -1,4 +1,4 @@
-module github.com/mdehoog/op-enclave
+module github.com/base-org/op-enclave
 
 go 1.22.6
 
@@ -7,7 +7,7 @@ require (
 	github.com/ethereum-optimism/optimism v1.9.3
 	github.com/ethereum/go-ethereum v1.14.11
 	github.com/hashicorp/go-multierror v1.1.1
-	github.com/mdehoog/op-enclave/op-enclave v0.0.0
+	github.com/base-org/op-enclave/op-enclave v0.0.0
 	github.com/prometheus/client_golang v1.20.4
 	github.com/urfave/cli/v2 v2.27.4
 )
@@ -111,7 +111,7 @@ require (
 	rsc.io/tmplfunc v0.0.3 // indirect
 )
 
-replace github.com/mdehoog/op-enclave/op-enclave => ./op-enclave
+replace github.com/base-org/op-enclave/op-enclave => ./op-enclave
 
 replace github.com/ethereum/go-ethereum => github.com/mdehoog/op-geth v0.0.0-20241003075401-d8f4cde5a852
 
