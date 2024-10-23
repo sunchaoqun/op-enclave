@@ -21,7 +21,7 @@ import { DeployChain } from "src/DeployChain.sol";
 import { Constants } from "@eth-optimism-bedrock/src/libraries/Constants.sol";
 import { ResourceMetering } from "@eth-optimism-bedrock/src/L1/ResourceMetering.sol";
 import { IResourceMetering } from "@eth-optimism-bedrock/src/L1/interfaces/IResourceMetering.sol";
-import "../nitro-validator/src/INitroValidator.sol";
+import "../src/INitroValidator.sol";
 
 import { console2 as console } from "forge-std/console2.sol";
 
@@ -48,6 +48,8 @@ contract DeploySystem is Deploy {
 
     function setupSystemConfigGlobal() public {
         console.log("Setting up SystemConfigGlobal");
+
+        checkNitroValidator();
 
         deployERC1967Proxy("SystemConfigGlobalProxy");
         deploySystemConfigGlobal();
@@ -117,6 +119,26 @@ contract DeploySystem is Deploy {
         initializeOutputOracle();
     }
 
+    function checkNitroValidator() public {
+        console.log("Retrieving NitroValidator deploy");
+        string memory deploymentOutfile = string.concat(
+            vm.projectRoot(), "/deployments/", vm.toString(block.chainid), "-validator.json"
+        );
+        address nitroValidatorAddress = vm.parseJsonAddress(vm.readFile(deploymentOutfile), ".NitroValidator");
+        save("NitroValidator", nitroValidatorAddress);
+
+        INitroValidator validator = INitroValidator(nitroValidatorAddress);
+        bytes memory attestation = vm.readFileBinary(string.concat(vm.projectRoot(), "/test/nitro-attestation/sample_attestation.bin"));
+
+        uint256 timestamp = vm.getBlockTimestamp();
+        vm.warp(1708930774);
+        (bytes memory enclavePubKey, bytes memory pcr0) = validator.validateAttestation(attestation, 365 days);
+        vm.warp(timestamp);
+
+        vm.assertEq(enclavePubKey, hex"d239fd059dd0e0a01e280bec44903bb8143bae7e578b9844c6df5fd6351eddc0");
+        vm.assertEq(pcr0, hex"17BF8F048519797BE90497001A7559A3D555395937117D76F8BAAEDF56CA6D97952DE79479BC0C76E5D176D20F663790");
+    }
+
     function deploySystemConfigOwnable() public broadcast returns (address addr_) {
         console.log("Deploying OwnerConfig");
         OwnerConfig ownerConfig = new OwnerConfig{ salt: _implSalt() }(cfg.finalSystemOwner());
@@ -135,21 +157,8 @@ contract DeploySystem is Deploy {
     }
 
     function deploySystemConfigGlobal() public broadcast returns (address addr_) {
-        string memory filePath = string(abi.encodePacked(
-            "nitro-validator/deployments/",
-            vm.toString(block.chainid),
-            "-nitro-validator-deploy.json"
-        ));
-
-        if (!vm.exists(filePath)) {
-            revert("NitroValidator.json not found. Please deploy nitro-validator first.");
-        }
-
-        address nitroValidatorAddress = vm.parseJsonAddress(filePath, ".address");
-        INitroValidator nitroValidator = INitroValidator(nitroValidatorAddress);
-
         console.log("Deploying SystemConfigGlobal implementation");
-        addr_ = address(new SystemConfigGlobal{ salt: _implSalt() }(nitroValidator));
+        addr_ = address(new SystemConfigGlobal{ salt: _implSalt() }(INitroValidator(mustGetAddress("NitroValidator"))));
         save("SystemConfigGlobal", addr_);
         console.log("SystemConfigGlobal deployed at %s", addr_);
     }
