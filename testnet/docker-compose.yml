@@ -10,6 +10,17 @@ services:
       - ./data/geth:/data
     env_file:
       - .env
+#  op-reth:
+#    build:
+#      context: ..
+#      dockerfile: testnet/Dockerfile
+#    ports:
+#      - "8545:8545"
+#    command: [ "bash", "./entrypoint-reth.sh" ]
+#    volumes:
+#      - ./data/reth:/data
+#    env_file:
+#      - .env
   op-node:
     build:
       context: ..
