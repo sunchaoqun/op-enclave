@@ -291,6 +291,8 @@ func Main(cliCtx *cli.Context) error {
 	config.L2OutputOracleChallenger = common.Address{1}
 	config.SuperchainConfigGuardian = common.Address{1}
 	config.L2OutputOracleSubmissionInterval = 1
+	config.GasPriceOracleBaseFeeScalar = 0
+	config.GasPriceOracleBlobBaseFeeScalar = 0
 
 	// set up deployed contract addresses
 	config.L1StandardBridgeProxy = l1Addresses.L1StandardBridge
@@ -339,7 +341,7 @@ func Main(cliCtx *cli.Context) error {
 
 	log.Info("Building Optimism contracts")
 	cmd := exec.Command("forge", "build")
-	cmd.Dir = "./lib/optimism/packages/contracts-bedrock"
+	cmd.Dir = "./contracts/lib/optimism/packages/contracts-bedrock"
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err = cmd.Run()
@@ -347,8 +349,8 @@ func Main(cliCtx *cli.Context) error {
 		return fmt.Errorf("failed to build contracts: %w", err)
 	}
 
-	foundryArtifacts := foundry.OpenArtifactsDir("./lib/optimism/packages/contracts-bedrock/forge-artifacts")
-	sourceMap := foundry.NewSourceMapFS(os.DirFS("./lib/optimism/packages/contracts-bedrock"))
+	foundryArtifacts := foundry.OpenArtifactsDir("./contracts/lib/optimism/packages/contracts-bedrock/forge-artifacts")
+	sourceMap := foundry.NewSourceMapFS(os.DirFS("./contracts/lib/optimism/packages/contracts-bedrock"))
 	l2Host := createL2(log.Root(), foundryArtifacts, sourceMap, &config, l2Genesis.Timestamp)
 	if err := l2Host.EnableCheats(); err != nil {
 		return fmt.Errorf("failed to enable cheats: %w", err)
