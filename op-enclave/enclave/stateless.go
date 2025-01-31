@@ -95,11 +95,11 @@ func ExecuteStateless(
 	if err != nil {
 		return err
 	}
-	for _, tx := range txs {
-		if tx.IsDepositTx() {
-			return errors.New("sequenced txs cannot include deposits")
-		}
-	}
+	// for _, tx := range txs {
+	// 	if tx.IsDepositTx() {
+	// 		return fmt.Errorf("sequenced txs cannot include deposits - %s", tx.Hash().Hex())
+	// 	}
+	// }
 
 	// now add the deposits from L1 (and any from fork upgrades)
 	payloadTxs, err := unmarshalTxs(payload.Transactions)
