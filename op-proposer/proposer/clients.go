@@ -13,6 +13,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/params"
+	"github.com/ethereum/go-ethereum/rlp"
 	"github.com/ethereum/go-ethereum/rpc"
 )
 
@@ -166,8 +167,24 @@ func (e *ethClient) GetProof(ctx context.Context, address common.Address, hash c
 }
 
 func (e *ethClient) ExecutionWitness(ctx context.Context, hash common.Hash) (*stateless.ExecutionWitness, error) {
+	var rawWitness []byte
+	err := e.client.Client().CallContext(ctx, &rawWitness, "debug_executionWitness", hash)
+	if err != nil {
+		return nil, err
+	}
+
+	// If the response is RLP encoded (non-null and non-empty), decode it
+	if len(rawWitness) > 0 {
+		var witness stateless.ExecutionWitness
+		if err := rlp.DecodeBytes(rawWitness, &witness); err != nil {
+			return nil, err
+		}
+		return &witness, nil
+	}
+
+	// Fallback to JSON decoding
 	var witness stateless.ExecutionWitness
-	err := e.client.Client().CallContext(ctx, &witness, "debug_executionWitness", hash)
+	err = e.client.Client().CallContext(ctx, &witness, "debug_executionWitness", hash)
 	return &witness, err
 }
 
