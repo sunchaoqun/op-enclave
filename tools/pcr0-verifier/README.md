@@ -11,6 +11,13 @@ This tool extracts the PCR0 measurement from an op-enclave EIF (Enclave Image Fo
 
 1. Build the PCR0 verifier container:
 ```bash
+nitro-cli describe-eif --eif-path op-enclave-copy.eif
+docker save op-enclave:latest -o op-enclave.tar
+
+docker create --name temp op-enclave
+docker cp temp:/build/eif.bin ./op-enclave-copy.eif
+docker rm temp
+
 docker build -t pcr0-verifier .
 ```
 

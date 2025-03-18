@@ -42,3 +42,7 @@ in particular the `# per deploy` section at the top.
 ```bash
 docker-compose -f testnet/docker-compose.yml up
 ```
+
+address=0xF6dE766612007C96f16ca04a930A33fbccE61683
+
+

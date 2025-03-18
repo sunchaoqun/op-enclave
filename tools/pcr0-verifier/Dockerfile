@@ -28,8 +28,11 @@ WORKDIR /app
 COPY --from=skopeo /app/bin/skopeo /app/bin/skopeo
 COPY --from=umoci /app/bin/umoci /app/bin/umoci
 
-ENV TAG=v0.0.1-rc5
-RUN bin/skopeo --insecure-policy copy docker://ghcr.io/base/op-enclave:$TAG oci:op-enclave:latest
+# COPY op-enclave.tar /tmp/
+# RUN bin/skopeo --insecure-policy copy docker-archive:/tmp/op-enclave.tar oci:op-enclave:latest
+
+ENV TAG=latest
+RUN bin/skopeo --insecure-policy copy docker://ghcr.io/sunchaoqun/op-enclave:$TAG oci:op-enclave:latest
 RUN bin/umoci unpack --image op-enclave bundle
 
 # Extract PCR0
